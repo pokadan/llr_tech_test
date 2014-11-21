@@ -1,0 +1,4 @@
+<?php
+function consume_simple_install(){
+  //variable_set('consume_simple_service_path','http://sitea.dev/simple_endpoint/simple_listing');
+}

@@ -1,0 +1,4 @@
+name = Consume simple webservice
+description = Module to showcase how to consume a simple webservice a display that in a block.
+core = 7.x
+version = 7.x-1.0
