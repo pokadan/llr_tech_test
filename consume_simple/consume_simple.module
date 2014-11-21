@@ -86,8 +86,8 @@ function consume_simple_block_contents($delta) {
       //Authenticate
       $base_url = variable_get('consume_simple_service_servername') . '/simple_endpoint';
       $data = array(
-        'username' => 'admin',
-        'password' => 'admin',
+        'username' => variable_get('consume_simple_service_user_name'),
+        'password' => variable_get('consume_simple_service_user_pass'),
       );
       $data = http_build_query($data, '', '&');
       $options = array(
@@ -111,12 +111,13 @@ function consume_simple_block_contents($delta) {
         $options['data'] = http_build_query($data, '', '&');
         $options['method'] = 'GET';
         $response = drupal_http_request($base_url . '/simple_listing', $options);
+        $data = json_decode($response->data);
+
+        return array('#markup' => theme('consume_simple_output', array('data' => $data)));
       }
-      //get the list, store them in $items
-      $data = json_decode($response->data);
-      //return array('#markup' => print_r($data,true));
-      return array('#markup' => theme('consume_simple_output', array('data' => $data)));
-      return array('#markup' => theme('item_list', array('items' => $items)));
+      else {
+        return array('#markup' => t('Unabe to fetch data'));
+      }
 
       break;
   }
